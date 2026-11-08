@@ -1,0 +1,104 @@
+/* What the Animals Know: only what this piece draws. The plate, the frame, the keycaps, the key
+   strip and the wall label are the site's (/assets/main.css, _readings.scss). In the frame the
+   field is cobalt and the animals are cream, stronger the more mind the text gives them; yellow
+   is the rare mind read truly from the animal, and your hand (the animal you are on). An animal
+   said of a person is an outline. */
+
+@font-face {
+  font-family: "Hand";
+  src: url("data/hand.woff2") format("woff2");
+  font-display: block;
+}
+
+.ro-label [lang="fa"], .ro-panel .where[lang="fa"] { font-family: "Hand", var(--serif); unicode-bidi: isolate; }
+.ro-label [lang="fa"] { font-size: 1.15em; }
+
+#ghost, #words { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+#words { cursor: crosshair; }
+#words.dragging { cursor: grabbing; }
+
+/* ---- the passage under the pointer, or under j / k: the site's verse form ---- */
+.ro-panel { --ro-hand: "Hand"; }
+.ro-panel .lines .line b.k1 { color: var(--ro-mark-soft); }
+.ro-panel .lines .line b.k3 { color: var(--yellow); }
+.ro-panel .lines .line b.k5 { color: var(--ro-mark-soft); text-decoration: underline 1px; text-underline-offset: .3em; }
+.ro-panel .gloss { display: inline-flex; align-items: center; gap: .55em; font: 400 .72rem/1.3 var(--mono); color: var(--ro-mark); }
+.ro-panel .gloss:empty { display: none; }
+.ro-panel .gloss b { font: 600 .95rem/1 var(--sans); }
+.ro-panel .gloss em { font-style: normal; color: var(--ro-mark-soft); }
+.ro-panel .gloss .y { color: var(--yellow); }
+.ro-panel .count [lang="fa"] { font: 400 1rem/1 "Hand", serif; color: var(--ro-mark-soft); }
+
+/* a NaarDoon drawing, as one ink: its own shape filled with the frame's cream */
+.sil {
+  display: inline-block; flex: none; width: 2.6rem; height: 1.9rem;
+  background: currentColor;
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat;
+}
+.ro-panel .gloss .sil { color: var(--ro-mark); }
+
+/* the animal j / k is on: your hand, a yellow rule under it */
+.sel-rule {
+  position: absolute; left: 0; top: 0; z-index: 1;
+  height: 2px; background: var(--yellow); border-radius: 1px;
+  pointer-events: none;
+}
+
+/* the keys under the frame: each book, and each kind of mind with the mark it is drawn in */
+.ro-animals .ro-key [lang="fa"] { font-family: "Hand", var(--fa); font-size: 1.1em; }
+.ro-lights .ro-key { flex-basis: 150px; }
+.sw {
+  display: inline-block; width: 18px; height: 9px; margin-right: 8px; vertical-align: .05em;
+  border-radius: 1px; background: var(--cobalt-deep);
+  box-shadow: inset 0 0 0 1px var(--cobalt-deep);
+}
+.sw::after { content: ""; display: block; height: 100%; border-radius: 1px; }
+.sw.k4::after { background: var(--cream); }
+.sw.k3::after { background: var(--yellow); }
+.sw.k2::after { background: rgba(242, 235, 218, .58); }
+.sw.k1::after { background: rgba(242, 235, 218, .3); }
+.sw.k5::after { box-shadow: inset 0 0 0 1.5px var(--cream); margin: 1px; height: calc(100% - 2px); }
+:root[data-theme="dark"] .sw { background: var(--cobalt-night); box-shadow: inset 0 0 0 1px var(--rule-strong); }
+
+.fallback { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font: 400 .8rem/1.5 var(--mono); color: var(--ro-mark); }
+main > .fallback, body > .fallback { position: static; }
+
+/* ---- the readout, redesigned: the passage on the right, a card on the left ---- */
+.ro-panel.ro-read { padding-top: 2.2rem; }
+.ro-panel.ro-read > .where { width: min(100%, 54rem); text-align: right; }
+.ro-read .rd {
+  width: min(100%, 54rem); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) 14.5rem; gap: 22px; align-items: start;
+  direction: rtl;                                   /* the passage first, on the right; the card on the left */
+}
+.ro-read .rd > * { direction: ltr; }
+.ro-read .lines { width: auto; margin: 0; direction: rtl; }
+.ro-read .lines .line .t { line-height: 1.75; }
+.ro-read .lines u { text-decoration: underline dotted 1.5px; text-underline-offset: .35em; text-decoration-color: var(--ro-mark-soft); color: var(--ro-mark); }
+.ro-read .lines b.this { box-shadow: inset 0 -2px 0 var(--yellow); }
+
+.ro-read .card { padding: 2px 0 0 14px; border-left: 1px solid var(--ro-mark-rule); text-align: left; }
+.ro-read .card__h { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.ro-read .card__h p { margin: 0; display: flex; flex-direction: column; }
+.ro-read .card__h b { font: 800 1.35rem/1.05 var(--sans); letter-spacing: -.02em; text-transform: lowercase; color: var(--ro-mark); }
+.ro-read .card__h small { font: 400 .62rem/1.4 var(--mono); color: var(--ro-mark-soft); margin-top: 3px; }
+.ro-read .card .sil { width: 3.4rem; height: 2.6rem; color: var(--ro-mark); }
+.ro-read .card .sil.none {                          /* no drawing for this animal: its initial, on a plate */
+  -webkit-mask: none; mask: none; background: none; display: grid; place-items: center;
+  border: 1px solid var(--ro-mark-rule); border-radius: 4px; width: 2.6rem;
+  font: 800 1.2rem/1 var(--sans); text-transform: lowercase; color: var(--ro-mark-soft);
+}
+.ro-read .card dl { display: grid; grid-template-columns: 4.4rem minmax(0, 1fr); gap: 0; margin: 0; font: 400 .7rem/1.45 var(--mono); }
+.ro-read .card dt, .ro-read .card dd { margin: 0; padding: 4px 0; border-top: 1px solid var(--ro-mark-rule); }
+.ro-read .card dt { color: var(--ro-mark-soft); }
+.ro-read .card dd { color: var(--ro-mark); }
+.ro-read .card .sw { width: 14px; height: 7px; margin-right: 6px; vertical-align: .05em; box-shadow: inset 0 0 0 1px var(--ro-mark-rule); }
+
+@media (max-width: 720px) {
+  .ro-read .rd { grid-template-columns: 1fr; gap: 10px; }
+  .ro-read .card { border-left: 0; padding-left: 0; }
+  .ro-read .card dl { grid-template-columns: 4.4rem 1fr; }
+}
+.ro-read .lines .line .n { display: none; }          /* the card says it; a lone number beside the passage only distracts */
+.ro-animals .ro-stage > .ro-controls:first-of-type .ro-key { flex-basis: 118px; }
+.ro-animals .ro-key kbd { margin-left: 8px; padding: 0 4px; border: 1px solid currentColor; border-radius: 3px; font: 500 .62rem/1.3 var(--mono); opacity: .7; }

@@ -1,0 +1,89 @@
+/* The Animals, Counted: the atlas, in the site's own inks (/assets/main.css). On the page the
+   ink is cobalt on cream (cream on cobalt in the dark); a mark is stronger the more mind the text
+   gives the animal, yellow is a mind read truly from it, and an animal said of a person is an
+   outline. */
+
+@font-face { font-family: "Hand"; src: url("../data/hand.woff2") format("woff2"); font-display: swap; }
+
+.ro-atlas { --k4: var(--ink); --k3: var(--yellow); --k2: color-mix(in srgb, var(--ink) 55%, transparent);
+  --k1: color-mix(in srgb, var(--ink) 24%, transparent); }
+.at-main { padding-bottom: 4rem; }
+.at-books { width: 100%; margin-bottom: 1rem; }
+.at-books .ro-key { flex-basis: 120px; min-height: 40px; }
+
+.at-sec { margin-top: 2.6rem; }
+.at-sec h2 { margin: 0 0 .4rem; padding-top: 8px; border-top: var(--stroke) solid var(--ink); font: 800 1.3rem/1.1 var(--sans); letter-spacing: -.02em; text-transform: lowercase; }
+.at-lede { max-width: var(--measure); margin: 0 0 1rem; font-size: .98rem; }
+
+/* a mark of each kind, as a swatch */
+.sw { display: inline-block; width: 18px; height: 9px; margin-right: 7px; vertical-align: .02em; border-radius: 1px; }
+.sw.k4 { background: var(--k4); } .sw.k3 { background: var(--k3); box-shadow: inset 0 0 0 1px var(--ink); }
+.sw.k2 { background: var(--k2); } .sw.k1 { background: var(--k1); }
+.sw.k5 { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.at-legend { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 1rem; font: 400 .72rem/1.6 var(--mono); }
+
+/* a NaarDoon drawing, in the page's ink */
+.sil { display: inline-block; flex: none; background: currentColor;
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
+
+/* the species */
+.at-species { display: grid; grid-template-columns: 2.6rem 8rem repeat(var(--n), minmax(0, 1fr)); gap: 3px 14px; align-items: center; }
+.at-species .head { grid-column: span 1; font: 500 .66rem/1.2 var(--mono); color: var(--ink-soft); padding-bottom: 4px; border-bottom: var(--hair) solid var(--rule); }
+.at-species .sil { width: 2.4rem; height: 1.6rem; color: var(--ink); }
+.at-species .name { appearance: none; border: 0; background: none; padding: 2px 4px; cursor: pointer; text-align: left;
+  font: 500 .95rem/1.2 var(--sans); color: var(--ink); border-radius: 3px; }
+.at-species .name:hover, .at-species .name:focus-visible { background: var(--hand); color: var(--on-hand); outline: none; }
+.at-species .cell { display: flex; align-items: center; gap: 6px; height: 1.2rem; }
+.at-species .bar { flex: 1; display: flex; height: 9px; background: var(--faint); border-radius: 1px; overflow: hidden; }
+.at-species .bar span { height: 100%; }
+.at-species .bar .k3 { box-shadow: inset 0 0 0 1px var(--ink); }
+.at-species .fig { width: 2.6rem; height: 9px; position: relative; }
+.at-species .fig span { position: absolute; left: 0; top: 0; bottom: 0; box-shadow: inset 0 0 0 1.5px var(--ink); }
+.at-species .n { width: 2.4rem; font: 400 .62rem/1 var(--mono); color: var(--ink-soft); text-align: right; }
+
+/* the matrix: a number in each cell, and the yellow of your hand where there are most */
+.at-matrix { overflow-x: auto; }
+.at-matrix table { width: auto; font: 400 .72rem/1 var(--mono); }
+.at-matrix th, .at-matrix td { border: 0; padding: 0; }
+.at-matrix thead th { height: 7rem; vertical-align: bottom; padding: 0 0 6px; border-bottom: var(--stroke) solid var(--ink); }
+.at-matrix thead th span { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); text-transform: lowercase; }
+.at-matrix tbody th { padding: 0 12px 0 0; text-align: left; font-weight: 500; color: var(--ink); white-space: nowrap; border-bottom: var(--hair) solid var(--rule); }
+.at-matrix td { width: 2.6rem; height: 1.7rem; text-align: center; border-bottom: var(--hair) solid var(--rule); border-left: var(--hair) solid var(--rule); }
+.at-matrix td.z { color: transparent; }
+.at-matrix td.total { color: var(--ink-soft); border-left: var(--stroke) solid var(--ink); padding: 0 8px; }
+
+/* the figures */
+.at-figures { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 4px 2rem; }
+.at-figures .row { display: grid; grid-template-columns: 2.4rem 6.5rem 1fr 4.5rem; gap: 8px; align-items: center; font-size: .95rem; }
+.at-figures .sil { width: 2.2rem; height: 1.4rem; color: var(--ink); }
+.at-figures .b { height: 8px; box-shadow: inset 0 0 0 1.5px var(--ink); border-radius: 1px; }
+.at-figures .n { font: 400 .64rem/1 var(--mono); color: var(--ink-soft); text-align: right; }
+
+/* the table of passages */
+.at-filters { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: .4rem 0 .6rem; font: 400 .72rem/1.6 var(--mono); color: var(--ink-soft); }
+.at-filters select { font: inherit; color: var(--ink); background: var(--paper); border: var(--hair) solid var(--rule-strong); border-radius: 4px; padding: 2px 4px; margin-left: 4px; }
+.at-filters button, .at-pager button { appearance: none; cursor: pointer; font: 500 .72rem/1 var(--mono); color: var(--ink); background: none;
+  border: var(--hair) solid var(--rule-strong); border-radius: 4px; padding: 4px 10px; }
+.at-filters button:hover, .at-pager button:hover { background: var(--hand); color: var(--on-hand); }
+.at-table td { vertical-align: top; }
+.at-table td.book, .at-table td.lab { font: 400 .68rem/1.5 var(--mono); color: var(--ink-soft); white-space: nowrap; }
+.at-table td.lab b { font-weight: 500; color: var(--ink); }
+.at-table td.lab b.k3 { background: var(--yellow); color: var(--cobalt); padding: 0 3px; border-radius: 2px; }
+.at-table td.an { white-space: nowrap; font-weight: 500; }
+.at-table td.p { font: 400 1.12rem/1.75 "Hand", var(--fa-serif); direction: rtl; text-align: right; }
+.at-table td.p mark { background: none; color: inherit; box-shadow: inset 0 -2px 0 var(--ink); }
+.at-table td.p a { font: 400 .62rem/1 var(--mono); margin-right: .7em; direction: ltr; unicode-bidi: isolate; }
+.at-pager { display: flex; align-items: center; gap: 10px; font: 400 .72rem/1 var(--mono); color: var(--ink-soft); }
+
+/* the drawings' credits */
+.at-credits { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 14px 22px; }
+.at-credits figure { display: grid; grid-template-columns: 4.2rem 1fr; gap: 10px; align-items: center; margin: 0; padding-top: 10px; border-top: var(--hair) solid var(--rule); }
+.at-credits .sil { width: 4rem; height: 3rem; color: var(--ink); }
+.at-credits figcaption { font: 400 .68rem/1.45 var(--mono); color: var(--ink-soft); }
+.at-credits figcaption b { display: block; font: 600 .92rem/1.2 var(--sans); color: var(--ink); }
+
+@media (max-width: 720px) {
+  .at-species { grid-template-columns: 2rem 6rem repeat(var(--n), minmax(0, 1fr)); gap: 3px 8px; }
+  .at-species .fig, .at-species .n { display: none; }
+  .at-table td.lab, .at-table td.book { display: none; }
+}

@@ -1,0 +1,114 @@
+# What the Plants Know: the plant words looked for, decided by hand.
+# form	species	class	homograph	exact	note
+# homograph 1: the spelling is also another word; the annotator decides each use in context.
+# exact 1: matched only as written, never with an ending taken off (نیست must not become نی).
+# A part of a plant counts (leaf, branch, thorn, fruit, grain, wood); a made product does not
+# (wine, bread, sugar, oil, rosewater), and neither does a place (garden, meadow, rose-garden).
+درخت	tree	generic	0	0
+درختان	tree	generic	0	0
+شجر	tree	generic	1	0	also lineage
+اشجار	tree	generic	0	0
+نهال	sapling	generic	0	0
+گیاه	plant	generic	0	0
+گیا	plant	generic	0	0
+نبات	plant	generic	1	0	also sugar candy
+سبزه	greenery	generic	1	0	also the down on a face
+علف	grass	generic	0	0
+برگ	leaf	part	1	0	also provisions, equipment
+شاخ	branch	part	1	0	also horn
+شاخه	branch	part	0	0
+شاخسار	branch	part	0	0
+بیخ	root	part	0	0
+ریشه	root	part	0	0
+میوه	fruit	part	0	0
+ثمر	fruit	part	0	0
+ثمره	fruit	part	0	0
+ثمار	fruit	part	0	0
+دانه	seed	part	1	0	also a bead, a pearl, a counter
+تخم	seed	part	1	0	also egg, lineage
+غنچه	bud	part	0	0
+شکوفه	blossom	part	0	0
+خوشه	cluster	part	0	0
+خار	thorn	part	0	0
+خس	chaff	part	1	1	also a base person
+خسی	chaff	part	1	1
+خاشاک	chaff	part	0	0
+کاه	straw	part	0	0
+هیزم	firewood	part	0	0
+سرو	cypress	tree	1	0	also King Sarv of Yemen
+چنار	plane tree	tree	0	0
+بید	willow	tree	1	1	also moth
+صنوبر	pine	tree	0	0
+کاج	pine	tree	0	0
+شمشاد	box tree	tree	0	0
+عرعر	juniper	tree	0	0
+سپیدار	white poplar	tree	0	0
+نارون	elm	tree	0	0
+بلوط	oak	tree	0	0
+ابنوس	ebony	tree	0	0
+نخل	date palm	tree	0	0
+نخیل	date palm	tree	0	0
+طوبی	Tuba tree	tree	1	0	also blessedness
+سدره	lote tree	tree	0	0
+زقوم	zaqqum	tree	0	0
+عود	aloeswood	tree	1	1	also the lute
+صندل	sandalwood	tree	0	0
+ارغوان	Judas tree	tree	1	0	also purple
+تاک	vine	tree	0	1
+رز	vine	tree	1	1
+مو	vine	tree	1	1	also hair
+گل	rose	flower	1	0	also mud, clay; also any flower
+گلبن	rose	flower	0	0
+ورد	rose	flower	1	1	also a litany
+لاله	tulip	flower	0	0
+نرگس	narcissus	flower	0	0
+سوسن	lily	flower	0	0
+بنفشه	violet	flower	0	0
+یاسمن	jasmine	flower	0	0
+یاسمین	jasmine	flower	0	0
+سمن	jasmine	flower	0	0
+نسرین	eglantine	flower	0	0
+نسترن	eglantine	flower	0	0
+نیلوفر	water lily	flower	0	0
+سنبل	hyacinth	flower	0	0
+شقایق	anemone	flower	0	0
+ضیمران	basil	herb	0	0
+ریحان	basil	herb	0	0
+ریاحین	sweet herbs	herb	0	0
+سپرغم	sweet herbs	herb	0	0
+شنبلید	fenugreek	flower	0	0
+خیری	wallflower	flower	1	1	also charity, goodness
+زعفران	saffron	flower	0	0
+خشخاش	poppy	flower	0	0
+حنا	henna	herb	0	0
+نی	reed	reed	1	1	also "no", "not"
+نیشکر	sugar cane	reed	0	0
+خیزران	bamboo	reed	0	0
+پنبه	cotton	herb	0	0
+کتان	flax	herb	1	0	also linen
+سیب	apple	fruit	0	0
+انار	pomegranate	fruit	0	0
+نار	pomegranate	fruit	1	1	also fire
+ترنج	citron	fruit	0	0
+نارنج	bitter orange	fruit	0	0
+بادام	almond	fruit	0	0
+پسته	pistachio	fruit	0	0
+انگور	grape	fruit	0	0
+خرما	date	fruit	0	0
+انجیر	fig	fruit	0	0
+زیتون	olive	fruit	0	0
+عناب	jujube	fruit	0	0
+جوز	walnut	fruit	0	0
+فندق	hazelnut	fruit	0	0
+امرود	pear	fruit	0	0
+شفتالو	peach	fruit	0	0
+حنظل	colocynth	fruit	0	0
+کدو	gourd	fruit	0	0
+خیار	cucumber	fruit	1	0	also choice
+پیاز	onion	fruit	0	0
+گندم	wheat	grain	0	0
+جو	barley	grain	1	1	also a stream, "seek"
+ارزن	millet	grain	0	0
+کنجد	sesame	grain	0	0
+عدس	lentil	grain	0	0
+نخود	chickpea	grain	0	0

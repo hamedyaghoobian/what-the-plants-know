@@ -38,6 +38,10 @@ if __name__ == "__main__":
     path, out = sys.argv[1:3]
     root = get(f"page?url={path}")["poetOrCat"]["cat"]
     books = []
+    top = []                                  # poems at the book's own level (the Golestan's preface) come first
+    walk(root["id"], top)
+    if top[0]["poems"]:
+        books.append({**top[0], "title": top[0]["poems"][0]["title"], "children": []})
     for ch in root["children"]:
         walk(ch["id"], books)
     json.dump({"source": f"https://ganjoor.net{path}", "title": root["title"], "books": books},

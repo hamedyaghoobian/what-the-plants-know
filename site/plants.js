@@ -1,31 +1,34 @@
-// What the Animals Know: three books of Persian literature with only their animals lit, each by how
-// much mind the text gives it, in the terms of Steven Wagschal's Minding Animals (2018).
+// What the Plants Know: eight books of Persian literature with only their plants lit, each by how
+// much of a soul the text gives it, on the tradition's own ladder (Avicenna's vegetative, animal and
+// rational souls; Rumi's "I died as mineral and became a plant").
 //
 // A book is laid out as a manuscript of columns, read right to left: verse two half-lines to a row,
-// Kalila's prose in lines a couplet wide. The field is cobalt (the frame's ground, in both themes);
-// the words are a faint cream ghost and the animals are cream, stronger the more mind the passage
-// gives: faint for an animal treated as a thing, half for one that only does what its kind does,
-// full for human faculties given to it. Yellow is the rare mind read truly from the animal, the
-// one Wagschal looks for. An animal said of a person, a figure of speech, is an outline.
+// prose in lines a couplet wide. The field is cobalt (the frame's ground, in both themes); the words
+// are a faint cream ghost and the plants are cream, stronger the higher the passage lifts them:
+// faint for a plant as a thing, half for plant life only, stronger for the feelings of the animal
+// soul, full for the speech and reason of the human soul. Yellow is a sense read truly from the
+// plant: the water lily opening to the sun, roots seeking water. A plant said of a person, a figure
+// of speech, is an outline.
 
 const COL_GAP = 4.5;
 const MARGIN = 6;
 const ASPECT = 1.45;
 const MAX_PX_PER_EM = 110;
 const READ_PX_PER_EM = 7;      // from here on the text shows, faintly
-const WORD_PX_PER_EM = 3;      // from here on the animals are written out, not marked
-const BOOK_KEY = "what-the-animals-know:book";
-const BOOKS = ["kalila", "attar", "shahnameh", "masnavi", "marzban", "parvin"];
-const NAMES = { kalila: "Kalila wa Dimna", attar: "The Conference of the Birds", shahnameh: "The Shahnameh", masnavi: "The Masnavi", marzban: "Marzban-nameh", parvin: "Parvin's Divan" };
+const WORD_PX_PER_EM = 3;      // from here on the plants are written out, not marked
+const BOOK_KEY = "what-the-plants-know:book";
+const BOOKS = ["kalila", "attar", "shahnameh", "masnavi", "marzban", "parvin", "golestan", "bustan"];
+const NAMES = { kalila: "Kalila wa Dimna", attar: "The Conference of the Birds", shahnameh: "The Shahnameh", masnavi: "The Masnavi", marzban: "Marzban-nameh", parvin: "Parvin's Divan", golestan: "The Golestan", bustan: "The Bustan" };
 const FACULTIES = ["speech", "reasoning", "knowledge", "emotion", "deception", "perception", "desire", "memory", "moral judgement", "devotion"];
-const SPECTRUM = ["", "no mind", "what its kind does", "a mind read from the animal", "a human mind"];
-const FIGURE = ["", "an animal", "an animal as a person", "said of a person or thing"];
-// the classes of light: 0 not judged, 1-4 the spectrum, 5 a figure of speech
-const CLASS_OF = r => r[1] === 3 ? 5 : r[4];
+const SPECTRUM = ["", "a thing", "plant life only", "a sense true to the plant", "the animal soul: feeling", "the human soul: speech, reason"];
+const FIGURE = ["", "a plant", "a plant as a person", "said of a person or thing"];
+// the classes of light: 0 not judged, 1-5 the ladder, 6 a figure of speech
+const FIG = 6;
+const CLASS_OF = r => r[1] === 3 ? FIG : r[4];
 
 // The site's tokens, as numbers: cream #F2EBDA, yellow #F2C500.
 const CREAM = [242, 235, 218], YELLOW = [242, 197, 0];
-const LIGHT = [[CREAM, .3], [CREAM, .3], [CREAM, .58], [YELLOW, 1], [CREAM, 1], [CREAM, .85]];
+const LIGHT = [[CREAM, .3], [CREAM, .28], [CREAM, .5], [YELLOW, 1], [CREAM, .76], [CREAM, 1], [CREAM, .85]];
 
 const frame = document.getElementById("frame");
 const ghostCanvas = document.getElementById("ghost");
@@ -180,11 +183,11 @@ function setWords(ctx, s, ox, oy, w, h) {
         const px = Math.round(s * lineS[l] * 100) / 100;
         if (px !== size) { ctx.font = `${px}px "Hand"`; size = px; }
         ctx.fillText(wordsOf(l)[mkWord[i]], x, y);
-        if (k === 5) ctx.fillRect(x, y + .2 * s, wd, Math.max(.6, .05 * s));   // a figure, underlined
+        if (k === FIG) ctx.fillRect(x, y + .2 * s, wd, Math.max(.6, .05 * s));   // a figure, underlined
       } else {
         const ww = Math.max(1.8, wd), hh = Math.max(1.8, .42 * s);
         const xx = x + (wd - ww) / 2, yy = y - .38 * s - hh / 2;
-        if (k === 5 && hh >= 3.5) {   // a figure of speech: an outline, an animal the text does not mean
+        if (k === FIG && hh >= 3.5) {   // a figure of speech: an outline, a plant the text does not mean
           ctx.strokeStyle = fills[k]; ctx.lineWidth = Math.max(.7, .06 * s);
           ctx.strokeRect(xx + ctx.lineWidth / 2, yy + ctx.lineWidth / 2, Math.max(.6, ww - ctx.lineWidth), Math.max(.6, hh - ctx.lineWidth));
         } else ctx.fillRect(xx, yy, ww, hh);
@@ -251,7 +254,7 @@ function drawLayer(L, alpha, until) {
   lctx.globalAlpha = 1;
 }
 
-// ---------- the animal under the pointer, or under j / k ----------
+// ---------- the plant under the pointer, or under j / k ----------
 
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const shows = i => only < 0 || CLASS_OF(T.table[mkRow[i]]) === only;
@@ -277,9 +280,9 @@ function under(px, py) {
 }
 
 // The readout. On the right the passage: a couplet as the site sets verse, or for prose a window of
-// about two lines around the animal. Every animal in it is marked in its own light, the one you are
+// about two lines around the plant. Every plant in it is marked in its own light, the one you are
 // on underlined in yellow (your hand), and the words the judgement rests on underlined dotted. On
-// the left a card: the animal's drawing, its name, and how it was judged.
+// the left a card: the plant's drawing, its name, and how it was judged.
 const bareWord = w => w.replace(/[\u064B-\u065F\u0670\u200c«»"'()،؛:.!؟?]/g, "");
 function wordHTML(l, w, here, ev) {
   const word = esc(wordsOf(l)[w]);
@@ -322,9 +325,9 @@ function showPanel(i) {
   const field = (t, v) => v ? `<dt>${t}</dt><dd>${v}</dd>` : "";
   document.getElementById("card").innerHTML =
     `<div class="card__h">${mark}<p><b>${esc(species)}</b><small>${NAMES[book]}</small></p></div>` +
-    (unjudged ? `<dl>${field("mind", "not yet judged")}</dl>` :
+    (unjudged ? `<dl>${field("soul", "not yet judged")}</dl>` :
     `<dl>${field("as", FIGURE[fig])}${field("relation", mode !== "none" ? esc(mode) : "")}` +
-    `${field("mind", spec ? `<i class="sw k${k}"></i>${SPECTRUM[spec]}` : fig === 3 ? `<i class="sw k5"></i>a figure of speech` : "")}` +
+    `${field("soul", spec ? `<i class="sw k${k}"></i>${SPECTRUM[spec]}` : fig === 3 ? `<i class="sw k6"></i>a figure of speech` : "")}` +
     `${field("given", fs.join(", "))}${unsure ? field("note", "the reader was unsure") : ""}</dl>`);
   panel.classList.add("show");
 }
@@ -381,15 +384,15 @@ function useOnly(k) {
 }
 for (const b of document.querySelectorAll("[data-class]")) b.onclick = () => useOnly(+b.dataset.class);
 
-// j / k read the animals one by one, in the order of the book (only those shown): the view comes
-// close, the animal is underlined in yellow (your hand), and its passage shows below.
+// j / k read the plants one by one, in the order of the book (only those shown): the view comes
+// close, the plant is underlined in yellow (your hand), and its passage shows below.
 let sel = -1;
 const selRule = document.getElementById("sel-rule");
 function readStep(d) {
   if (!T) return;
   const k = mkLine.length;
   let i = sel;
-  if (i < 0) {                                   // the first animal at or after the line in the middle of the view
+  if (i < 0) {                                   // the first plant at or after the line in the middle of the view
     const x = (cw / 2 - view.x) / view.s, y = (ch * .4 - view.y) / view.s;
     const c = Math.min(cols - 1, Math.max(0, colAt(x)));
     let r = c * perCol + Math.min(perCol - 1, Math.max(0, Math.floor((y - MARGIN) / ROW_H)));
@@ -419,13 +422,13 @@ function readRule() {
 
 const ui = window.Piece({
   frame,
-  keys: () => [["j k", "the next animal"], ["1–6", "the book"], ["h r t n f", only >= 0 ? "one kind alone: on" : "one kind of mind alone"],
+  keys: () => [["j k", "the next plant"], ["1–8", "the book"], ["h a s g t f", only >= 0 ? "one rung alone: on" : "one rung alone"],
     ["+ − 0", "zoom · whole book"], ["← →", "move"],
     ["esc", only >= 0 ? "every kind back" : sel >= 0 ? "stop reading" : "give the keys back"]],
   help: () => [
-    ["j k", "the next / previous animal, in the order of the book: its passage, how it was judged and its drawing show below"],
-    ["1–6", "Kalila wa Dimna · the Conference of the Birds · the Shahnameh · the Masnavi · Marzban-nameh · Parvin's Divan"],
-    ["h r t n f", "one kind alone: h a human mind · r a mind read from the animal · t what its kind does · n no mind · f said of a person (a figure)"],
+    ["j k", "the next / previous plant, in the order of the book: its passage, how it was judged and its drawing show below"],
+    ["1–8", "Kalila wa Dimna · the Conference of the Birds · the Shahnameh · the Masnavi · Marzban-nameh · Parvin's Divan · the Golestan · the Bustan"],
+    ["h a s g t f", "one rung alone: h the human soul · a the animal soul · s a sense true to the plant · g plant life only · t a thing · f said of a person (a figure)"],
     ["+ − 0", "come closer · go back · see the whole book (◻)"],
     ["← ↑ → ↓", "move across the book"],
   ],

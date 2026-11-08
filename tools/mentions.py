@@ -73,6 +73,6 @@ if __name__ == "__main__":
     with open(sys.argv[2], "w") as f:
         for m in sorted(found, key=lambda m: m["id"]): f.write(json.dumps(m, ensure_ascii=False) + "\n")
     print(n, "mentions,", sum(1 for m in found if m["id"] not in set(old.values())), "new")
-    for book in ("kalila", "attar", "shahnameh", "masnavi", "marzban", "parvin"):
+    for book in ("kalila", "attar", "shahnameh", "masnavi", "marzban", "parvin", "golestan", "bustan"):
         items = sorted(((c, form) for (b, form), c in by.items() if b == book), reverse=True)
         print(book, sum(c for c, _ in items), " ".join(f"{form}:{c}" for c, form in items[:45]))

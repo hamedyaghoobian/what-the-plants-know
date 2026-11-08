@@ -15,7 +15,7 @@ from anthropic.types.message_create_params import MessageCreateParamsNonStreamin
 from anthropic.types.messages.batch_create_params import Request
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BOOKS = {"kalila": "Kalila wa Dimna", "attar": "Attar, Manteq al-Tayr", "shahnameh": "Ferdowsi, Shahnameh", "masnavi": "Rumi, Masnavi", "marzban": "Varavini, Marzban-nameh", "parvin": "Parvin E'tesami, Divan"}
+BOOKS = {"kalila": "Kalila wa Dimna", "attar": "Attar, Manteq al-Tayr", "shahnameh": "Ferdowsi, Shahnameh", "masnavi": "Rumi, Masnavi", "marzban": "Varavini, Marzban-nameh", "parvin": "Parvin E'tesami, Divan", "golestan": "Saadi, Golestan", "bustan": "Saadi, Bustan"}
 FACULTIES = ["speech", "reasoning", "knowledge", "emotion", "deception", "perception", "desire", "memory", "moral", "devotion"]
 SCHEMA = {
     "type": "object",

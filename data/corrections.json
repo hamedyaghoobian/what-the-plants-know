@@ -1,0 +1,29 @@
+{
+ "_": "hand fixes: mention id -> fields that replace the model's, with why",
+ "1377": {
+  "spectrum": "gratuitous",
+  "rung": "animal",
+  "faculties": [
+   "emotion"
+  ],
+  "mode": "none",
+  "why": "hand check: the rose as the one in love (ندانم که عاشق گل آمد گر ابر) is given a feeling, not treated as a thing"
+ },
+ "1955": {
+  "figure": "plant",
+  "faculties": [],
+  "spectrum": "species-typical",
+  "rung": "",
+  "why": "it is the month Tammuz that laughs at the red apple; the apple only ripens"
+ },
+ "58": {
+  "spectrum": "species-typical",
+  "faculties": [],
+  "why": "the bee is drawn to the water lily's scent; nothing is given to the lily"
+ },
+ "60": {
+  "spectrum": "species-typical",
+  "faculties": [],
+  "why": "the bee is drawn to the water lily's scent; nothing is given to the lily"
+ }
+}

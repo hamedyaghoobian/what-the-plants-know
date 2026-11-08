@@ -1,4 +1,4 @@
-"""Put the three books into one list of units, in reading order, for finding and reading animals.
+"""Put the eight books into one list of units, in reading order, for finding and reading animals.
 
 A unit is a couplet (verse) or a sentence (prose), with where it sits: the book, the chapter,
 the section heading and its Ganjoor address. Kalila wa Dimna is prose with verse set into it;
@@ -9,12 +9,14 @@ the Conference of the Birds and the Shahnameh are verse.
 import json, re, sys
 
 BOOKS = [  # key, file, title
-    ("kalila", "data/kalila-ganjoor.json", "کلیله و دمنه"),
+    ("kalila", "../animals-persian-lit/data/kalila-ganjoor.json", "کلیله و دمنه"),
     ("attar", "../attar-conference-of-birds/data/manteq-ganjoor.json", "منطق‌الطیر"),
     ("shahnameh", "../ferdowsi-shahnameh/data/shahnameh-ganjoor.json", "شاهنامه"),
-    ("masnavi", "data/masnavi-ganjoor.json", "مثنوی معنوی"),     # books added later go last, so earlier units keep their numbers
-    ("marzban", "data/marzban-ganjoor.json", "مرزبان‌نامه"),
-    ("parvin", "data/parvin-ganjoor.json", "دیوان پروین اعتصامی"),
+    ("masnavi", "../animals-persian-lit/data/masnavi-ganjoor.json", "مثنوی معنوی"),     # books added later go last, so earlier units keep their numbers
+    ("marzban", "../animals-persian-lit/data/marzban-ganjoor.json", "مرزبان‌نامه"),
+    ("parvin", "../animals-persian-lit/data/parvin-ganjoor.json", "دیوان پروین اعتصامی"),
+    ("golestan", "data/golestan-ganjoor.json", "گلستان"),       # Saadi's two garden books, added for the plants
+    ("bustan", "data/bustan-ganjoor.json", "بوستان"),
 ]
 
 def clean(t):

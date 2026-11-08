@@ -1,30 +1,30 @@
-// The Animals, Counted: the atlas of What the Animals Know.
-const BOOK_NAMES = ["Kalila wa Dimna", "The Birds", "The Shahnameh", "The Masnavi", "Marzban-nameh", "Parvin"];
-const SPECTRUM = ["anthropectomy", "species-typical", "constructive", "gratuitous"];   // k1..k4
-const SPECTRUM_SAY = { anthropectomy: "no mind", "species-typical": "what its kind does", constructive: "a mind read from the animal", gratuitous: "a human mind", none: "" };
-const MODES = ["court", "guide", "kept", "ridden", "hunter", "hunted", "wild", "eaten", "sacrificed", "emblem", "none"];
+// The Plants, Counted: the atlas of What the Plants Know.
+const BOOK_NAMES = ["Kalila wa Dimna", "The Birds", "The Shahnameh", "The Masnavi", "Marzban-nameh", "Parvin", "The Golestan", "The Bustan"];
+const SPECTRUM = ["anthropectomy", "species-typical", "constructive", "gratuitous", "rational"];   // k1..k5
+const SPECTRUM_SAY = { anthropectomy: "a thing", "species-typical": "plant life only", constructive: "a sense true to the plant", gratuitous: "the animal soul", rational: "the human soul", none: "" };
+const MODES = ["garden", "harvest", "eaten", "cut", "used", "gift", "wild", "emblem", "none"];
 const PAGE = 40;
 const R = { book: 0, species: 1, cls: 2, figure: 3, mode: 4, fac: 5, spec: 6, unsure: 7, pass: 8, token: 9, evidence: 10 };
 
 let D, drawings = {}, book = -1, page = 0;
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const klass = r => r[R.figure] === "figure" ? 5 : SPECTRUM.indexOf(r[R.spec]) + 1;
+const klass = r => r[R.figure] === "figure" ? 6 : SPECTRUM.indexOf(r[R.spec]) + 1;
 const inBook = r => book < 0 || r[R.book] === book;
 const sil = s => drawings[s] ? `<i class="sil" style="--m:url('../data/naardoon/${esc(drawings[s].file)}')" aria-hidden="true"></i>` : `<i></i>`;
 
 function render() {
   const rows = D.rows.filter(inBook);
-  const books = book < 0 ? [0, 1, 2, 3, 4, 5] : [book];
+  const books = book < 0 ? [0, 1, 2, 3, 4, 5, 6, 7] : [book];
   const figs = rows.filter(r => r[R.figure] === "figure").length;
-  $("total").textContent = `${rows.length.toLocaleString("en")} animals in ${book < 0 ? "the six books" : BOOK_NAMES[book]}: ` +
-    `${(rows.length - figs).toLocaleString("en")} as animals, ${figs.toLocaleString("en")} said of people or things`;
+  $("total").textContent = `${rows.length.toLocaleString("en")} plants in ${book < 0 ? "the eight books" : BOOK_NAMES[book]}: ` +
+    `${(rows.length - figs).toLocaleString("en")} as plants, ${figs.toLocaleString("en")} said of people or things`;
 
   // ---- species bars ----
   const by = new Map();
   for (const r of rows) {
     const s = r[R.species];
-    if (!by.has(s)) by.set(s, books.map(() => ({ n: 0, k: [0, 0, 0, 0], fig: 0 })));
+    if (!by.has(s)) by.set(s, books.map(() => ({ n: 0, k: [0, 0, 0, 0, 0], fig: 0 })));
     const c = by.get(s)[books.indexOf(r[R.book])];
     if (r[R.figure] === "figure") c.fig++;
     else { c.n++; const k = SPECTRUM.indexOf(r[R.spec]); if (k >= 0) c.k[k]++; }
@@ -38,9 +38,9 @@ function render() {
     h += sil(s) + `<button type="button" class="name" data-species="${esc(s)}">${esc(s)}</button>`;
     for (const c of cs) {
       const judged = c.k.reduce((a, b) => a + b, 0) || 1;
-      const segs = [3, 2, 1, 0].map(k => `<span class="k${k + 1}" style="width:${100 * c.k[k] / judged}%;background:var(--k${k + 1})"></span>`).join("");
+      const segs = [4, 3, 2, 1, 0].map(k => `<span class="k${k + 1}" style="width:${100 * c.k[k] / judged}%;background:var(--k${k + 1})"></span>`).join("");
       const figW = c.n + c.fig ? 100 * c.fig / (c.n + c.fig) : 0;
-      h += c.n + c.fig ? `<div class="cell" title="${c.n} as animals, ${c.fig} said of people"><div class="bar">${c.n ? segs : ""}</div>` +
+      h += c.n + c.fig ? `<div class="cell" title="${c.n} as plants, ${c.fig} said of people"><div class="bar">${c.n ? segs : ""}</div>` +
         `<div class="fig"><span style="width:${figW}%"></span></div><span class="n">${c.n + c.fig}</span></div>` : `<div class="cell"></div>`;
     }
   }
@@ -50,15 +50,15 @@ function render() {
   };
 
   // ---- relation x faculty ----
-  const animals = rows.filter(r => r[R.figure] !== "figure");
+  const plants = rows.filter(r => r[R.figure] !== "figure");
   const counts = MODES.map(() => D.faculties.map(() => 0)), totals = MODES.map(() => 0);
-  for (const r of animals) {
+  for (const r of plants) {
     const m = MODES.indexOf(r[R.mode]); if (m < 0) continue;
     totals[m]++;
     D.faculties.forEach((_, f) => { if (r[R.fac] & (1 << f)) counts[m][f]++; });
   }
   const max = Math.max(1, ...counts.flat());
-  let t = `<table><thead><tr><th></th>${D.faculties.map(f => `<th><span>${f}</span></th>`).join("")}<th class="total"><span>animals</span></th></tr></thead><tbody>`;
+  let t = `<table><thead><tr><th></th>${D.faculties.map(f => `<th><span>${f}</span></th>`).join("")}<th class="total"><span>plants</span></th></tr></thead><tbody>`;
   MODES.forEach((m, i) => {
     if (!totals[i]) return;
     t += `<tr><th>${m}</th>` + counts[i].map(n => n

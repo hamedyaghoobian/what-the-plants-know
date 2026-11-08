@@ -1,8 +1,8 @@
-"""Shape the three books for the page: every line set in Amiri with HarfBuzz, every animal word placed.
+"""Shape the eight books for the page: every line set in Amiri with HarfBuzz, every plant word placed.
 
 Verse is set as couplets, two half-lines to a row; Kalila's prose is broken into lines the width
-of a couplet. Each animal mention carries its labels from data/annotations.jsonl; words the
-labels say are not animals (milk, a grave, "again") are dropped. Writes site/data/<book>.json
+of a couplet. Each plant mention carries its labels from data/annotations.jsonl; words the
+labels say are not plants (mud, "no", a stream) are dropped. Writes site/data/<book>.json
 and site/data/hand.woff2.
 
   .venv/bin/python -I tools/shape.py
@@ -14,11 +14,12 @@ from fontTools.ttLib import TTFont
 from fontTools import subset
 
 FONT = "fonts/Amiri-Regular.ttf"
-BOOKS = ["kalila", "attar", "shahnameh", "masnavi", "marzban", "parvin"]
+BOOKS = ["kalila", "attar", "shahnameh", "masnavi", "marzban", "parvin", "golestan", "bustan"]
 GUTTER = 1.4                      # em between the halves of a couplet, as on the page
 FACULTIES = ["speech", "reasoning", "knowledge", "emotion", "deception", "perception", "desire", "memory", "moral", "devotion"]
-SPECTRUM = ["none", "anthropectomy", "species-typical", "constructive", "gratuitous"]
-FIGURE = ["none", "creature", "character", "figure"]
+# the ladder: a thing, vegetal life, a sense true to plants, the animal soul given, the human soul given
+SPECTRUM = ["none", "anthropectomy", "species-typical", "constructive", "gratuitous", "rational"]
+FIGURE = ["none", "plant", "character", "figure"]
 
 face = hb.Face(hb.Blob.from_file_path(FONT)); font = hb.Font(face)
 upem = TTFont(FONT)["head"].unitsPerEm
@@ -57,7 +58,7 @@ def build(book, us, by_unit, labels):
 
     def keep(m, line, word, ext, verse_lines=None):
         a = labels.get(m["id"])
-        if a is not None and not a["is_animal"]:
+        if a is not None and not a["is_plant"]:
             return
         u = unit_of[m["unit"]]
         if u["id"] not in pass_ix:
@@ -67,7 +68,7 @@ def build(book, us, by_unit, labels):
         a = a or {}
         fac = sum(1 << FACULTIES.index(f) for f in a.get("faculties", []) if f in FACULTIES)
         table.append([a.get("species") or m["species"], FIGURE.index(a.get("figure", "none")), a.get("mode", "none"), fac,
-                      SPECTRUM.index(a.get("spectrum", "none")), a.get("evidence", ""), pass_ix[u["id"]],
+                      SPECTRUM.index("rational" if a.get("spectrum") == "gratuitous" and a.get("rung") == "human" else a.get("spectrum", "none")), a.get("evidence", ""), pass_ix[u["id"]],
                       1 if a.get("unsure") else 0, 0 if a else 1])
         x0, x1 = ext[word]
         marks.extend([line, word, round(x0), round(x1), len(table) - 1])
@@ -136,7 +137,7 @@ if __name__ == "__main__":
     if os.path.exists("data/annotations.jsonl"):
         for l in open("data/annotations.jsonl"):
             a = json.loads(l); labels[a["id"]] = a
-    # hand corrections over the labels, and one name for each species (tortoise and turtle, ox and cattle)
+    # hand corrections over the labels, and one name for each species (rose and flower kept apart; willow branch to willow)
     for k, v in json.load(open("data/corrections.json")).items():
         if not k.startswith("_") and int(k) in labels:
             labels[int(k)].update({f: x for f, x in v.items() if f != "why"}); labels[int(k)]["model"] = "hand"
@@ -151,7 +152,7 @@ if __name__ == "__main__":
         d = build(book, [u for u in units if u["book"] == book], by_unit, labels)
         json.dump(d, open(f"site/data/{book}.json", "w"), ensure_ascii=False, separators=(",", ":"))
         text |= set("".join(d["lines"]) + "".join(s["title"] + "".join(p["title"] for p in s["poems"]) for s in d["sections"]))
-        print(book, len(d["lines"]), "lines", d["mentions"], "animals kept,", d["labelled"], "labelled")
+        print(book, len(d["lines"]), "lines", d["mentions"], "plants kept,", d["labelled"], "labelled")
     opts = subset.Options(); opts.layout_features = ["*"]; opts.name_IDs = ["*"]; opts.notdef_outline = True
     ft = TTFont(FONT); sub = subset.Subsetter(opts); sub.populate(text="".join(sorted(text | set(" ۰۱۲۳۴۵۶۷۸۹«»")))); sub.subset(ft)
     ft.flavor = "woff2"; ft.save("site/data/hand.woff2")

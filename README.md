@@ -79,3 +79,18 @@ Open Font License 1.1 (`fonts/OFL.txt`); `site/data/hand.woff2` is a subset of i
 `site/data/naardoon/` are from NaarDoon, which offers them to download and build with freely; each is
 the work of the contributor named in `credits.json`, traced from an object whose own rights rest with
 its collection.
+
+## Licence and how to cite
+
+- **Code**: MIT (`LICENSE`).
+- **The piece** (its words, drawings, data and design, as published at https://hamedyaghoobian.com/readings-otherwise/what-the-plants-know/): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use it, change it, teach with it; say where it came from.
+- **What comes from elsewhere keeps its own terms:**
+  - The books are in the public domain; their typed texts are [Ganjoor](https://ganjoor.net)'s.
+  - The drawings in `site/data/naardoon/` come from [NaarDoon](https://library.eranshahr.com) and belong to the artists and collections named in `site/data/naardoon/credits.json`. They are not covered by this licence.
+  - Amiri, and the subset made from it, is under the SIL Open Font License 1.1 (`OFL.txt`).
+
+To cite it:
+
+> Yaghoobian, Hamed. 2026. "What the Plants Know." *Readings, Otherwise*, no. 5. Interactive work, 8 November 2026. https://hamedyaghoobian.com/readings-otherwise/what-the-plants-know/
+
+`CITATION.cff` has the same, and GitHub's "Cite this repository" reads it. It was made with Claude, a language model, as its colophon says.
